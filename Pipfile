@@ -8,6 +8,7 @@ django = "*"
 fontawesome-free = "*"
 fontawesomefree = "*"
 environs = "*"
+django-tailwind = "*"
 
 [dev-packages]
 
