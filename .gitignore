@@ -113,6 +113,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-.idea/
+.idea
 .mypy_cache
 .pytest_cache
