@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% block title %}Flimn | Вход{% endblock %}
+</head>
+
+<body>
+    {% block content %}
+        <div class="wrapper_center">
+        <div class="form_container">
+            <form method="post" class="card-container">
+                <h2>Вход</h2>
+                {% csrf_token %}
+                {{ form }}
+                {{ form.non_field_errors }}
+                <button type="submit">Войти</button>
+            </form>
+            <div class="form_desc">Войдите в аккаунт Flimn</div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/signup.js' %}"></script>
+    {% endblock content %}
+</body>
+
+</html>

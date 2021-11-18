@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Flimn | Заметки{% endblock title %}</title>
+</head>
+
+<body>
+{% block content %}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .blk-btn {
+            border: none;
+            border-radius: 2px;
+            background-color: #009EB2;
+            color: white;
+        }
+
+        .blk-btn:focus {
+            outline: 2px solid white;
+        }
+
+        .btn-mg {
+            border: none;
+            border-radius: 2px;
+            background-color: #009EB2;
+            color: white;
+            margin-top: 30px;
+            float: right;
+        }
+
+        .btn-mg:focus {
+            outline: 2px solid #0082FD;
+        }
+    </style>
+    <button type="button" class="btn-mg" id="scroll_bottom_button">
+        <i class="fas fa-arrow-down"></i>
+    </button>
+    <button type="button" class="btn btn-dark button-list-container" style="float: left;"
+            data-toggle="modal" data-target="#notesModal">
+        Создать заметку
+    </button>
+    <br/>
+    <div class="list-container">
+        <div class="dflex-row">
+        </div>
+        <div class="modal fade" id="notesModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Создать заметку</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="create-note-form" class="modal-form">
+                        <div class="modal-body">
+                            <div class="dflex-column">
+                                {% csrf_token %}
+                                <input maxlength="255" data-name="Заголовок заметки" class="modal-input"
+                                       name="note-title" id="note-title"
+                                       placeholder="Заголовок заметки" required/>
+                                <textarea data-name="Текст заметки" class="modal-textarea" name="note-body"
+                                          placeholder="Текст заметки" required></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% if notes|length != 0 %}
+            {% for note in notes %}
+                <div class="card card text-white bg-info mb-3 card-min">
+                    <div class="card-header">
+                        <span class="font-weight-bold">{{ note.title }}</span>
+                        &middot;
+                        {{ note.date }}
+                        {% if user.pk == note.author.pk %}
+                            <div style="float:right;">
+                                <button type="button" class="blk-btn note-edit" id="note-edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button type="button" class="blk-btn note-delete" id="note-delete">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <p>{{ note.body }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Заметок пока не создано:(</p>
+        {% endif %}
+    </div>
+    <br/>
+    <button type="button" class="btn btn-dark button-list-container" style="float: left; margin-top: 15px;"
+            data-toggle="modal" data-target="#notesModal">
+        Создать заметку
+    </button>
+    <button type="button" class="btn-mg button-list-container" style="margin-bottom: 40px; margin-top: 15px;"
+            id="scroll_bottom_top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <script type="text/javascript" src="{% static 'js/notes.js' %}"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script>
+{% endblock content %}
+</body>
+
+</html>
