@@ -85,7 +85,11 @@ html {
 .card-container input:-webkit-autofill,
 .card-container input:-webkit-autofill:hover,
 .card-container input:-webkit-autofill:focus,
-.card-container input:-webkit-autofill:active {
+.card-container input:-webkit-autofill:active,
+.modal-body input:-webkit-autofill,
+.modal-body input:-webkit-autofill:hover,
+.modal-body input:-webkit-autofill:focus,
+.modal-body input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px #3DA9D6 inset !important;
     -webkit-text-fill-color: white;
 }
@@ -142,6 +146,7 @@ html {
     margin-bottom: 15px;
     border-radius: 5px;
     border: 1px solid #ced4da;
+    min-width: 200px;
     width: 200px;
     max-width: 960px;
     height: 45px;
@@ -165,6 +170,36 @@ html {
 }
 
 .modal-textarea:focus {
+    outline: none;
+    border-color: #3cade0;
+    box-shadow: 0 0 0 3px rgba(0, 72, 255, 0.25);
+}
+
+.blk-btn {
+    border: none;
+    border-radius: 2px;
+    background-color: #009EB2;
+    color: white;
+}
+
+.blk-btn:focus {
+    outline: 2px solid white;
+}
+
+.btn-mg {
+    border: none;
+    border-radius: 2px;
+    background-color: #009EB2;
+    color: white;
+    margin-top: 30px;
+    float: right;
+}
+
+.btn-mg:focus {
+    outline: 2px solid #0082FD;
+}
+
+.close-outline:focus {
     outline: none;
     border-color: #3cade0;
     box-shadow: 0 0 0 3px rgba(0, 72, 255, 0.25);

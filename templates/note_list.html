@@ -11,36 +11,11 @@
 <body>
 {% block content %}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        .blk-btn {
-            border: none;
-            border-radius: 2px;
-            background-color: #009EB2;
-            color: white;
-        }
-
-        .blk-btn:focus {
-            outline: 2px solid white;
-        }
-
-        .btn-mg {
-            border: none;
-            border-radius: 2px;
-            background-color: #009EB2;
-            color: white;
-            margin-top: 30px;
-            float: right;
-        }
-
-        .btn-mg:focus {
-            outline: 2px solid #0082FD;
-        }
-    </style>
     <button type="button" class="btn-mg" id="scroll_bottom_button">
         <i class="fas fa-arrow-down"></i>
     </button>
     <button type="button" class="btn btn-dark button-list-container" style="float: left;"
-            data-toggle="modal" data-target="#notesModal">
+            data-toggle="modal" data-target="#notesModal" id="note-create-state" onclick="click_note_create()">
         Создать заметку
     </button>
     <br/>
@@ -53,24 +28,27 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Создать заметку</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close close-outline" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <form id="create-note-form" class="modal-form">
-                        <div class="modal-body">
+                        <div class="modal-body" id="modal-body">
                             <div class="dflex-column">
                                 {% csrf_token %}
                                 <input maxlength="255" data-name="Заголовок заметки" class="modal-input"
                                        name="note-title" id="note-title"
                                        placeholder="Заголовок заметки" required/>
                                 <textarea data-name="Текст заметки" class="modal-textarea" name="note-body"
+                                          id="note-body"
                                           placeholder="Текст заметки" required></textarea>
                             </div>
+                            <input id="note-edit-state" name="note-edit-state" hidden>
+                            <input id="note-id" name="note-id" hidden>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                            <button type="submit" class="btn btn-primary" id="save-note-button">Сохранить</button>
                         </div>
                     </form>
                 </div>
@@ -85,10 +63,14 @@
                         {{ note.date }}
                         {% if user.pk == note.author.pk %}
                             <div style="float:right;">
-                                <button type="button" class="blk-btn note-edit" id="note-edit">
+                                <button type="button" class="blk-btn note-edit" id="note-edit" data-toggle="modal"
+                                        data-target="#notesModal"
+                                        onclick="click_note_edit({{ note.id }}, '{{ note.title }}', '{{ note.body }}')">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button type="button" class="blk-btn note-delete" id="note-delete">
+                                <button type="button" class="blk-btn note-delete" id="note-delete" data-toggle="modal"
+                                        data-target="#notesModal"
+                                        onclick="click_note_delete({{ note.id }}, '{{ note.title }}', '{{ note.body }}')">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </div>
@@ -112,6 +94,9 @@
             id="scroll_bottom_top">
         <i class="fas fa-arrow-up"></i>
     </button>
+    <script type="text/javascript">
+        $("#all-notes").text("Все заметки({{ notes|length }})")
+    </script>
     <script type="text/javascript" src="{% static 'js/notes.js' %}"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script>
