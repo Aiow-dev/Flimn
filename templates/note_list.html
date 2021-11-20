@@ -14,7 +14,7 @@
     <button type="button" class="btn-mg" id="scroll_bottom_button">
         <i class="fas fa-arrow-down"></i>
     </button>
-    <button type="button" class="btn btn-dark button-list-container" style="float: left;"
+    <button type="button" class="btn btn-dark button-list-container" style="float: left; transition: 1s;"
             data-toggle="modal" data-target="#notesModal" id="note-create-state" onclick="click_note_create()">
         Создать заметку
     </button>
@@ -47,6 +47,11 @@
                             <input id="note-id" name="note-id" hidden>
                         </div>
                         <div class="modal-footer">
+                            <div class='custom-control custom-checkbox'>
+                                <input type='checkbox' class='custom-control-input' id='customCheck1'
+                                       onchange='allow_required()'/>
+                                <label class='custom-control-label' for='customCheck1'>Разрешить пустыми</label>
+                            </div>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                             <button type="submit" class="btn btn-primary" id="save-note-button">Сохранить</button>
                         </div>
@@ -56,7 +61,7 @@
         </div>
         {% if notes|length != 0 %}
             {% for note in notes %}
-                <div class="card card text-white bg-info mb-3 card-min">
+                <div class="card card text-white bg-info mb-3 card-min" style="transition: 1s;">
                     <div class="card-header">
                         <span class="font-weight-bold">{{ note.title }}</span>
                         &middot;
@@ -95,7 +100,46 @@
         <i class="fas fa-arrow-up"></i>
     </button>
     <script type="text/javascript">
-        $("#all-notes").text("Все заметки({{ notes|length }})")
+        $("#all-notes").append('<span class="badge badge-light" style="transition: 1s;">{{ notes|length }}</span>');
+
+        function set_dark_theme() {
+            $(".badge").removeClass("badge-light").addClass("badge-dark");
+            $(".navbar").css("background-color", "white").removeClass("navbar-dark").addClass("navbar-light");
+            $(".button-list-container").removeClass("btn-dark").addClass("btn-light");
+            $(".card").removeClass("text-white").removeClass("bg-info").addClass("bg-light");
+            $(".toggle-mode").css("color", "#343a40");
+            $(".note-edit").css("background-color", "#eef0f1").css("color", "#343a40");
+            $(".note-delete").css("background-color", "#eef0f1").css("color", "#343a40");
+            document.body.style.background = "#343a40";
+        }
+
+        function set_light_theme() {
+            $(".badge").removeClass("badge-dark").addClass("badge-light");
+            $(".button-list-container").removeClass("btn-light").addClass("btn-dark");
+            $(".card").removeClass("bg-light").addClass("text-white").addClass("bg-info");
+            $(".navbar").css("background-color", "#155F7E").removeClass("navbar-light").addClass("navbar-dark");
+            $(".toggle-mode").css("color", "white");
+            $(".note-edit").css("background-color", "#009EB2").css("color", "white");
+            $(".note-delete").css("background-color", "#009EB2").css("color", "white");
+            document.body.style.background = "white";
+        }
+
+        let modeToggle = document.querySelector('.toggle-mode');
+        modeToggle.addEventListener('click', () => {
+            if ($("body").css("background-color") === "rgb(52, 58, 64)") {
+                console.log("Тема1");
+                localStorage.setItem("theme", "light");
+                set_light_theme();
+            } else {
+                localStorage.setItem("theme", "dark");
+                set_dark_theme();
+            }
+        });
+        if (localStorage.getItem("theme") === "dark") {
+            set_dark_theme();
+        } else {
+            set_light_theme();
+        }
     </script>
     <script type="text/javascript" src="{% static 'js/notes.js' %}"></script>
     <script type="text/javascript"

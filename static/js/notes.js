@@ -69,50 +69,40 @@ $("#scroll_bottom_top").click(function () {
 
 function click_note_create() {
     $("#exampleModalLabel").text("Создать заметку")
-    $("#save-note-button").prop('className', "btn btn-primary")
-    $("#save-note-button").text("Сохранить")
+    $("#save-note-button").prop('className', "btn btn-primary").text('Сохранить')
     $("#note-title").val("");
     $("#note-body").val("");
     $("#note-id").val("");
-    $("#note-edit-state").val("")
+    $("#note-edit-state").val("");
+    $("#customCheck1").prop("checked", false);
 }
 
 function click_note_edit(note_id, note_title, note_body) {
-    console.log(note_title)
     $("#exampleModalLabel").text("Редактировать заметку")
-    $("#save-note-button").prop('className', "btn btn-primary")
-    $("#save-note-button").text("Сохранить")
+    $("#save-note-button").prop('className', "btn btn-primary").text('Сохранить')
     $("#note-title").val(note_title);
     $("#note-body").val(note_body);
     $("#note-id").val(note_id);
     $("#note-edit-state").val("Edit");
+    $("#customCheck1").prop("checked", false);
 }
-
-let count_delete = 0
 
 function click_note_delete(note_id, note_title, note_body) {
     $("#exampleModalLabel").text("Удалить заметку")
-    $("#save-note-button").prop('className', "btn btn-danger")
-    $("#save-note-button").text("Удалить")
+    $("#save-note-button").prop('className', "btn btn-danger").text('Удалить')
     $("#note-title").val(note_title);
     $("#note-body").val(note_body);
     $("#note-id").val(note_id);
-    $("#note-id").val(note_id);
     $("#note-edit-state").val("Delete");
+    $("#customCheck1").prop("checked", false);
     submit_delete();
-    count_delete += 1
-    if (count_delete === 1) {
-        let newCheckbox = $("<div class='custom-control custom-checkbox'></div>")
-            .append("<input type='checkbox' class='custom-control-input' value='' id='customCheck1' checked/>")
-            .append("<label class='custom-control-label' for='customCheck1'>Разрешить пустыми</label>")
+}
 
-        $('#modal-body').append(newCheckbox);
-    }
-    if ($("#customCheck1").prop("checked")){
+function allow_required() {
+    if ($("#customCheck1").checked) {
         $("#note-title").removeAttr("required");
         $("#note-body").removeAttr("required");
-    }
-    else{
+    } else {
         $("#note-title").prop("required", "true");
         $("#note-body").prop("required", "true");
     }
