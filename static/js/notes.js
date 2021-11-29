@@ -78,6 +78,7 @@ function click_note_create() {
 }
 
 function click_note_edit(note_id, note_title, note_body) {
+    console.log("work");
     $("#exampleModalLabel").text("Редактировать заметку")
     $("#save-note-button").prop('className', "btn btn-primary").text('Сохранить')
     $("#note-title").val(note_title);
@@ -98,12 +99,12 @@ function click_note_delete(note_id, note_title, note_body) {
     submit_delete();
 }
 
-function allow_required() {
-    if ($("#customCheck1").checked) {
+$("#customCheck1").on("change",function () {
+    if ($(this).prop("checked") === true) {
         $("#note-title").removeAttr("required");
         $("#note-body").removeAttr("required");
     } else {
         $("#note-title").prop("required", "true");
         $("#note-body").prop("required", "true");
     }
-}
+})

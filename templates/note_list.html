@@ -12,7 +12,7 @@
 {% block content %}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <button type="button" class="btn-mg" id="scroll_bottom_button">
-        <i class="fas fa-arrow-down"></i>
+        <em class="fas fa-arrow-down"></em>
     </button>
     <button type="button" class="btn btn-dark button-list-container" style="float: left; transition: 1s;"
             data-toggle="modal" data-target="#notesModal" id="note-create-state" onclick="click_note_create()">
@@ -20,17 +20,13 @@
     </button>
     <br/>
     <div class="list-container">
-        <div class="dflex-row">
-        </div>
         <div class="modal fade" id="notesModal" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-center">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Создать заметку</h5>
-                        <button type="button" class="close close-outline" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form id="create-note-form" class="modal-form">
                         <div class="modal-body" id="modal-body">
@@ -39,7 +35,7 @@
                                 <input maxlength="255" data-name="Заголовок заметки" class="modal-input"
                                        name="note-title" id="note-title"
                                        placeholder="Заголовок заметки" required/>
-                                <textarea data-name="Текст заметки" class="modal-textarea" name="note-body"
+                                <textarea data-Fname="Текст заметки" class="modal-textarea" name="note-body"
                                           id="note-body"
                                           placeholder="Текст заметки" required></textarea>
                             </div>
@@ -48,9 +44,8 @@
                         </div>
                         <div class="modal-footer">
                             <div class='custom-control custom-checkbox'>
-                                <input type='checkbox' class='custom-control-input' id='customCheck1'
-                                       onchange='allow_required()'/>
-                                <label class='custom-control-label' for='customCheck1'>Разрешить пустыми</label>
+                                <input type="checkbox" class="form-check-input" id="customCheck1"/>
+                                <label class="form-check-label" for="customCheck1">Разрешить пустыми</label>
                             </div>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                             <button type="submit" class="btn btn-primary" id="save-note-button">Сохранить</button>
@@ -71,12 +66,12 @@
                                 <button type="button" class="blk-btn note-edit" id="note-edit" data-toggle="modal"
                                         data-target="#notesModal"
                                         onclick="click_note_edit({{ note.id }}, '{{ note.title }}', '{{ note.body }}')">
-                                    <i class="fas fa-edit"></i>
+                                    <em class="fas fa-edit"></em>
                                 </button>
                                 <button type="button" class="blk-btn note-delete" id="note-delete" data-toggle="modal"
                                         data-target="#notesModal"
                                         onclick="click_note_delete({{ note.id }}, '{{ note.title }}', '{{ note.body }}')">
-                                    <i class="fas fa-trash-alt"></i>
+                                    <em class="fas fa-trash-alt"></em>
                                 </button>
                             </div>
                         {% endif %}
@@ -95,32 +90,34 @@
             data-toggle="modal" data-target="#notesModal">
         Создать заметку
     </button>
-    <button type="button" class="btn-mg button-list-container" style="margin-bottom: 40px; margin-top: 15px;"
+    <button type="button" class="btn-mg" style="margin-bottom: 40px; margin-top: 15px;"
             id="scroll_bottom_top">
         <i class="fas fa-arrow-up"></i>
     </button>
     <script type="text/javascript">
-        $("#all-notes").append('<span class="badge badge-light" style="transition: 1s;">{{ notes|length }}</span>');
+        $("#all-notes").append('<span class="badge bg-light text-dark" style="transition: 1s;">{{ notes|length }}</span>');
 
         function set_dark_theme() {
-            $(".badge").removeClass("badge-light").addClass("badge-dark");
+            $(".badge").removeClass("bg-light").removeClass("text-dark").addClass("bg-dark");
             $(".navbar").css("background-color", "white").removeClass("navbar-dark").addClass("navbar-light");
             $(".button-list-container").removeClass("btn-dark").addClass("btn-light");
-            $(".card").removeClass("text-white").removeClass("bg-info").addClass("bg-light");
+            $(".card").removeClass("bg-info").addClass("bg-secondary");
             $(".toggle-mode").css("color", "#343a40");
-            $(".note-edit").css("background-color", "#eef0f1").css("color", "#343a40");
-            $(".note-delete").css("background-color", "#eef0f1").css("color", "#343a40");
+            $(".note-edit").css("background-color", "#eef0f1").css("color", "#6c757d");
+            $(".note-delete").css("background-color", "#eef0f1").css("color", "#6c757d");
+            $(".btn-mg").css("background-color", "white").css("color", "#6c757d");
             document.body.style.background = "#343a40";
         }
 
         function set_light_theme() {
-            $(".badge").removeClass("badge-dark").addClass("badge-light");
+            $(".badge").removeClass("bg-dark").addClass("bg-light").addClass("text-dark");
             $(".button-list-container").removeClass("btn-light").addClass("btn-dark");
-            $(".card").removeClass("bg-light").addClass("text-white").addClass("bg-info");
+            $(".card").removeClass("bg-secondary").addClass("bg-info");
             $(".navbar").css("background-color", "#155F7E").removeClass("navbar-light").addClass("navbar-dark");
             $(".toggle-mode").css("color", "white");
-            $(".note-edit").css("background-color", "#009EB2").css("color", "white");
-            $(".note-delete").css("background-color", "#009EB2").css("color", "white");
+            $(".note-edit").css("background-color", "#00C3E5").css("color", "white");
+            $(".note-delete").css("background-color", "#00C3E5").css("color", "white");
+            $(".btn-mg").css("background-color", "#17a2b8").css("color", "white");
             document.body.style.background = "white";
         }
 
