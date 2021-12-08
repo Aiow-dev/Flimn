@@ -11,11 +11,11 @@
 <body>
 {% block content %}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <button type="button" class="btn-mg" id="scroll_bottom_button">
+    <button type="button" class="btn-mg" aria-label="scroll-bottom-button" id="scroll_bottom_button">
         <em class="fas fa-arrow-down"></em>
     </button>
     <button type="button" class="btn btn-dark button-list-container" style="float: left; transition: 1s;"
-            data-toggle="modal" data-target="#notesModal" id="note-create-state" onclick="click_note_create()">
+            data-bs-toggle="modal" data-bs-target="#notesModal" id="note-create-state" onclick="click_note_create()">
         Создать заметку
     </button>
     <br/>
@@ -26,7 +26,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Создать заметку</h5>
-                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form id="create-note-form" class="modal-form">
                         <div class="modal-body" id="modal-body">
@@ -47,7 +47,7 @@
                                 <input type="checkbox" class="form-check-input" id="customCheck1"/>
                                 <label class="form-check-label" for="customCheck1">Разрешить пустыми</label>
                             </div>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                             <button type="submit" class="btn btn-primary" id="save-note-button">Сохранить</button>
                         </div>
                     </form>
@@ -63,13 +63,16 @@
                         {{ note.date }}
                         {% if user.pk == note.author.pk %}
                             <div style="float:right;">
-                                <button type="button" class="blk-btn note-edit" id="note-edit" data-toggle="modal"
-                                        data-target="#notesModal"
+                                <button type="button" class="blk-btn note-edit" aria-label="note-edit" id="note-edit"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#notesModal"
                                         onclick="click_note_edit({{ note.id }}, '{{ note.title }}', '{{ note.body }}')">
                                     <em class="fas fa-edit"></em>
                                 </button>
-                                <button type="button" class="blk-btn note-delete" id="note-delete" data-toggle="modal"
-                                        data-target="#notesModal"
+                                <button type="button" class="blk-btn note-delete" aria-label="note-delete"
+                                        id="note-delete"
+                                        data-bs-toggle="modal"
+                                         data-bs-target="#notesModal"
                                         onclick="click_note_delete({{ note.id }}, '{{ note.title }}', '{{ note.body }}')">
                                     <em class="fas fa-trash-alt"></em>
                                 </button>
@@ -90,19 +93,17 @@
             data-toggle="modal" data-target="#notesModal">
         Создать заметку
     </button>
-    <button type="button" class="btn-mg" style="margin-bottom: 40px; margin-top: 15px;"
-            id="scroll_bottom_top">
-        <i class="fas fa-arrow-up"></i>
+    <button type="button" class="btn-mg" aria-label="scroll-bottom-top" style="margin-bottom: 40px; margin-top: 15px;"
+            id="scroll_top_button">
+        <em class="fas fa-arrow-up"></em>
     </button>
     <script type="text/javascript">
         $("#all-notes").append('<span class="badge bg-light text-dark" style="transition: 1s;">{{ notes|length }}</span>');
 
         function set_dark_theme() {
             $(".badge").removeClass("bg-light").removeClass("text-dark").addClass("bg-dark");
-            $(".navbar").css("background-color", "white").removeClass("navbar-dark").addClass("navbar-light");
             $(".button-list-container").removeClass("btn-dark").addClass("btn-light");
             $(".card").removeClass("bg-info").addClass("bg-secondary");
-            $(".toggle-mode").css("color", "#343a40");
             $(".note-edit").css("background-color", "#eef0f1").css("color", "#6c757d");
             $(".note-delete").css("background-color", "#eef0f1").css("color", "#6c757d");
             $(".btn-mg").css("background-color", "white").css("color", "#6c757d");
@@ -113,29 +114,10 @@
             $(".badge").removeClass("bg-dark").addClass("bg-light").addClass("text-dark");
             $(".button-list-container").removeClass("btn-light").addClass("btn-dark");
             $(".card").removeClass("bg-secondary").addClass("bg-info");
-            $(".navbar").css("background-color", "#155F7E").removeClass("navbar-light").addClass("navbar-dark");
-            $(".toggle-mode").css("color", "white");
             $(".note-edit").css("background-color", "#00C3E5").css("color", "white");
             $(".note-delete").css("background-color", "#00C3E5").css("color", "white");
             $(".btn-mg").css("background-color", "#17a2b8").css("color", "white");
             document.body.style.background = "white";
-        }
-
-        let modeToggle = document.querySelector('.toggle-mode');
-        modeToggle.addEventListener('click', () => {
-            if ($("body").css("background-color") === "rgb(52, 58, 64)") {
-                console.log("Тема1");
-                localStorage.setItem("theme", "light");
-                set_light_theme();
-            } else {
-                localStorage.setItem("theme", "dark");
-                set_dark_theme();
-            }
-        });
-        if (localStorage.getItem("theme") === "dark") {
-            set_dark_theme();
-        } else {
-            set_light_theme();
         }
     </script>
     <script type="text/javascript" src="{% static 'js/notes.js' %}"></script>

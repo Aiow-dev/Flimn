@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flimn | Версии</title>
+</head>
+<body>
+{% block content %}
+    <div class="d-flex flex-row justify-content-center align-items-center" style="height: 90vh;">
+        <div class="card bg-light mb-3" style="max-width: 350px;">
+            <div class="card-header text-white" style="background-color: #00617e;">Desktop</div>
+            <div class="card-body">
+                <h5 class="card-title">Мощная, простая и легкая настольная версия Flimn</h5>
+                <div class="card-text">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-info mb-3">Не требуется подключение к Интернету</li>
+                    </ul>
+                    <div class="list-group">
+                        <button class="list-group-item list-group-item-info mb-3 dropdown-toggle" type="button"
+                                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" style="text-align: left; border-radius: 3px;">
+                            10$ или пробная версия
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton"
+                            style="width: 85%;">
+                            <li><a class="dropdown-item">Готовая сборка .exe</a></li>
+                            <li>
+                                <hr class="dropdown-divider"/>
+                            </li>
+                            <li><a class="dropdown-item">Исходный код + .exe</a></li>
+                            <li>
+                                <hr class="dropdown-divider"/>
+                            </li>
+                            <li><a class="dropdown-item">Пробная версия<span class="badge bg-light text-dark ms-2">Бесплатно</span></a>
+                            </li>
+                        </ul>
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-info mb-3">Множество инструментов
+                                редактирования
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-light mb-3 ms-5" style="max-width: 350px;">
+            <div class="card-header text-white" style="background-color: #00617e;">Web</div>
+            <div class="card-body">
+                <h5 class="card-title">Удобная, современная и эффективная веб-версия Flimn</h5>
+                <div class="card-text">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-info mb-3">Требуется подключение к Интернету</li>
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-info mb-3">Полностью бесплатно</li>
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-info mb-3">Только настройка темы</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+</body>
+</html>

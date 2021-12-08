@@ -78,7 +78,6 @@ function click_note_create() {
 }
 
 function click_note_edit(note_id, note_title, note_body) {
-    console.log("work");
     $("#exampleModalLabel").text("Редактировать заметку")
     $("#save-note-button").prop('className', "btn btn-primary").text('Сохранить')
     $("#note-title").val(note_title);
