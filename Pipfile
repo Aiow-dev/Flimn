@@ -9,6 +9,7 @@ fontawesome-free = "*"
 fontawesomefree = "*"
 environs = "*"
 django-tailwind = "*"
+dj-database-url = "*"
 
 [dev-packages]
 

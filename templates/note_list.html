@@ -90,7 +90,7 @@
     </div>
     <br/>
     <button type="button" class="btn btn-dark button-list-container" style="float: left; margin-top: 15px;"
-            data-toggle="modal" data-target="#notesModal">
+            data-bs-toggle="modal" data-bs-target="#notesModal">
         Создать заметку
     </button>
     <button type="button" class="btn-mg" aria-label="scroll-bottom-top" style="margin-bottom: 40px; margin-top: 15px;"
@@ -99,26 +99,19 @@
     </button>
     <script type="text/javascript">
         $("#all-notes").append('<span class="badge bg-light text-dark" style="transition: 1s;">{{ notes|length }}</span>');
-
-        function set_dark_theme() {
-            $(".badge").removeClass("bg-light").removeClass("text-dark").addClass("bg-dark");
-            $(".button-list-container").removeClass("btn-dark").addClass("btn-light");
-            $(".card").removeClass("bg-info").addClass("bg-secondary");
-            $(".note-edit").css("background-color", "#eef0f1").css("color", "#6c757d");
-            $(".note-delete").css("background-color", "#eef0f1").css("color", "#6c757d");
-            $(".btn-mg").css("background-color", "white").css("color", "#6c757d");
-            document.body.style.background = "#343a40";
-        }
-
-        function set_light_theme() {
-            $(".badge").removeClass("bg-dark").addClass("bg-light").addClass("text-dark");
-            $(".button-list-container").removeClass("btn-light").addClass("btn-dark");
-            $(".card").removeClass("bg-secondary").addClass("bg-info");
-            $(".note-edit").css("background-color", "#00C3E5").css("color", "white");
-            $(".note-delete").css("background-color", "#00C3E5").css("color", "white");
-            $(".btn-mg").css("background-color", "#17a2b8").css("color", "white");
-            document.body.style.background = "white";
-        }
+        $(".toggle-mode").click(function () {
+            console.log("clpc");
+            if ($("body").css("background-color") === "rgb(52, 58, 64)") {
+                console.log("light");
+                localStorage.setItem("theme", "light");
+            }
+            else {
+                console.log("dark");
+                localStorage.setItem("theme", "dark");
+            }
+            check_page_theme();
+        })
+        check_page_theme();
     </script>
     <script type="text/javascript" src="{% static 'js/notes.js' %}"></script>
     <script type="text/javascript"

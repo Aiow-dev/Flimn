@@ -63,7 +63,7 @@ $("#scroll_bottom_button").click(function () {
     window.scrollTo(0, document.body.scrollHeight);
 })
 
-$("#scroll_bottom_top").click(function () {
+$("#scroll_top_button").click(function () {
     window.scrollTo(0, -document.body.scrollHeight);
 })
 
